@@ -1,14 +1,13 @@
 package eu.crackscout.crackcore;
 
 
-import java.util.function.Consumer;
-
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
 import eu.crackscout.crackcore.events.ChestLogger;
 import eu.crackscout.crackcore.events.GeneralEventHandler;
+import eu.crackscout.crackcore.utils.DatabaseManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -66,8 +65,10 @@ public class CrackCoreMod {
                 output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
-    public CrackCoreMod()
-    {
+    
+    private static DatabaseManager databaseManager;
+    
+    public CrackCoreMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading
@@ -91,6 +92,19 @@ public class CrackCoreMod {
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        
+        // Datenbankverbindung herstellen
+//       databaseManager = new DatabaseManager();
+//        try {
+//            databaseManager.connect("localhost", 3306, "database", "user", "password");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public static DatabaseManager getDatabaseManager() {
+        return databaseManager;
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
