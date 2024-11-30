@@ -81,7 +81,7 @@ public class CrackCoreMod {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         // Register a different class as event Handler 
-        MinecraftForge.EVENT_BUS.register(new GeneralEventHandler());
+//        MinecraftForge.EVENT_BUS.register(new GeneralEventHandler());
         MinecraftForge.EVENT_BUS.register(new ChestLogger());
         MinecraftForge.EVENT_BUS.register(new HopperLogger());
 

@@ -83,7 +83,25 @@ public class ChestLogger {
 
             }
         }
-    }
+    }	
+	
+	@SubscribeEvent
+	public void onChestBreak(BlockEvent.BreakEvent event) {
+	    // Sicherstellen, dass das Event auf der Serverseite läuft
+	    if (!event.getLevel().isClientSide()) {
+	        var blockState = event.getState();
+	        var pos = event.getPos();
+
+	        // Überprüfen, ob der zerstörte Block eine normale oder gefangene Kiste ist
+	        if (blockState.is(Blocks.CHEST) || blockState.is(Blocks.TRAPPED_CHEST)) {
+	            if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
+	                logToFile(
+	                    serverPlayer.getName().getString(),
+	                    "Destroyed chest", pos.getX(), pos.getY(), pos.getZ());
+	            }
+	        }
+	    }
+	}
 
     
     /**
